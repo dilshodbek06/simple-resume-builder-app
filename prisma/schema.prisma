@@ -10,27 +10,47 @@ datasource db {
 // schema.prisma
 
 model User {
-  id                String   @id @default(uuid())
+  id                String       @id @default(uuid())
   firstName         String
   lastName          String
   jobProfession     String
-  email             String   @unique
+  email             String       @unique
   phone             String
   siteUrl           String?
   location          String
   industryKnowledge String[]
-  languages         String[]
+  languages         Language[]
+  socialLinks       SocialLink[]
+  hobbies           Hobby[]
+  experiences       Experience[]
+  educations        Education[]
+  skills            Skill[]
 }
 
 model SocialLink {
   id       String @id @default(uuid())
   platform String
   url      String
+
+  userId String?
+  User   User?   @relation(fields: [userId], references: [id])
+}
+
+model Language {
+  id   String @id @default(uuid())
+  name String
+  rate Int
+
+  userId String?
+  User   User?   @relation(fields: [userId], references: [id])
 }
 
 model Hobby {
   id   String @id @default(uuid())
   name String // E.g., "Reading", "Dancing", "Singing"
+
+  userId String?
+  User   User?   @relation(fields: [userId], references: [id])
 }
 
 model Experience {
@@ -40,6 +60,9 @@ model Experience {
   startDate     DateTime
   endDate       DateTime?
   description   String
+
+  userId String?
+  User   User?   @relation(fields: [userId], references: [id])
 }
 
 model Education {
@@ -49,10 +72,17 @@ model Education {
   location   String
   startDate  DateTime
   endDate    DateTime?
+
+  userId String?
+  User   User?   @relation(fields: [userId], references: [id])
 }
 
 model Skill {
   id           String @id @default(uuid())
   name         String // E.g., "HTML", "Figma"
   knowledgePct Int // Knowledge percentage (0-100)
+  imageUrl     String
+
+  userId String?
+  User   User?   @relation(fields: [userId], references: [id])
 }
