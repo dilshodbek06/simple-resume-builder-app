@@ -1,7 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
+  const router = useRouter();
+
   return (
     <div className="relative">
       <div className="px-4 sm:px-10">
@@ -15,7 +20,10 @@ const Hero = () => {
             adipiscing elit.
           </p>
           <div className="mt-10">
-            <Button className="px-8 py-6 rounded-xl text-white bg-cyan-900 transition-all hover:bg-cyan-800">
+            <Button
+              onClick={() => router.push("/dashboard")}
+              className="px-8 py-6 rounded-xl text-white bg-cyan-900 transition-all hover:bg-cyan-800"
+            >
               Get started
             </Button>
           </div>

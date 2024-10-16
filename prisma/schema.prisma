@@ -10,21 +10,30 @@ datasource db {
 // schema.prisma
 
 model User {
+  id      String   @id @default(uuid())
+  clerkId String   @unique
+  email   String   @unique
+  resumes Resume[] // A user can have multiple resumes
+}
+
+model Resume {
   id                String       @id @default(uuid())
-  firstName         String
-  lastName          String
-  jobProfession     String
-  email             String       @unique
-  phone             String
-  siteUrl           String?
-  location          String
+  title             String
+  firstName         String?
+  lastName          String?
+  email             String?
+  jobProfession     String?
+  location          String?
   industryKnowledge String[]
-  languages         Language[]
   socialLinks       SocialLink[]
   hobbies           Hobby[]
   experiences       Experience[]
   educations        Education[]
   skills            Skill[]
+  languages         Language[]
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
 }
 
 model SocialLink {
@@ -32,8 +41,8 @@ model SocialLink {
   platform String
   url      String
 
-  userId String?
-  User   User?   @relation(fields: [userId], references: [id])
+  resumeId String
+  Resume   Resume @relation(fields: [resumeId], references: [id])
 }
 
 model Language {
@@ -41,16 +50,16 @@ model Language {
   name String
   rate Int
 
-  userId String?
-  User   User?   @relation(fields: [userId], references: [id])
+  resumeId String
+  Resume   Resume @relation(fields: [resumeId], references: [id])
 }
 
 model Hobby {
   id   String @id @default(uuid())
-  name String // E.g., "Reading", "Dancing", "Singing"
+  name String
 
-  userId String?
-  User   User?   @relation(fields: [userId], references: [id])
+  resumeId String
+  Resume   Resume @relation(fields: [resumeId], references: [id])
 }
 
 model Experience {
@@ -61,8 +70,8 @@ model Experience {
   endDate       DateTime?
   description   String
 
-  userId String?
-  User   User?   @relation(fields: [userId], references: [id])
+  resumeId String
+  Resume   Resume @relation(fields: [resumeId], references: [id])
 }
 
 model Education {
@@ -73,16 +82,16 @@ model Education {
   startDate  DateTime
   endDate    DateTime?
 
-  userId String?
-  User   User?   @relation(fields: [userId], references: [id])
+  resumeId String
+  Resume   Resume @relation(fields: [resumeId], references: [id])
 }
 
 model Skill {
   id           String @id @default(uuid())
-  name         String // E.g., "HTML", "Figma"
-  knowledgePct Int // Knowledge percentage (0-100)
+  name         String
+  knowledgePct Int
   imageUrl     String
 
-  userId String?
-  User   User?   @relation(fields: [userId], references: [id])
+  resumeId String
+  Resume   Resume @relation(fields: [resumeId], references: [id])
 }

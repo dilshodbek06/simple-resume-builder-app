@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Josefin_Sans } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ToastProvider } from "@/components/providers/toaster-provider";
 
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
@@ -15,8 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${josefin.className} antialiased`}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${josefin.className} antialiased`}>
+          <ToastProvider />
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
