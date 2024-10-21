@@ -13,7 +13,7 @@ model User {
   id      String   @id @default(uuid())
   clerkId String   @unique
   email   String   @unique
-  resumes Resume[] // A user can have multiple resumes
+  resumes Resume[] // User can have multiple resumes
 }
 
 model Resume {
@@ -21,6 +21,9 @@ model Resume {
   title             String
   firstName         String?
   lastName          String?
+  imageUrl          String?
+  phone             String?
+  websiteUrl        String?
   email             String?
   jobProfession     String?
   location          String?
