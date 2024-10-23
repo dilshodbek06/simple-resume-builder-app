@@ -22,6 +22,7 @@ const UserInformationForm = ({ resume }: UserInformationFormProps) => {
           alt="uploaded photo"
           src={resume.imageUrl ? resume.imageUrl : "/images/user.svg"}
           fill
+          priority
         />
       </div>
 

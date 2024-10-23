@@ -26,6 +26,9 @@ const OneResumePage = async ({
     },
     include: {
       languages: true,
+      socialLinks: true,
+      hobbies: true,
+      experiences: true,
     },
   });
   if (!currentResume) {
@@ -51,16 +54,16 @@ const OneResumePage = async ({
           </div>
           {/* social  */}
           <div className="mt-3">
-            <SocialForm />
+            <SocialForm resume={currentResume} />
           </div>
           {/* hobbies */}
           <div className="mt-3">
-            <HobbiesForm />
+            <HobbiesForm resume={currentResume} />
           </div>
         </div>
         {/* right side */}
         <div className="w-[25rem] min-h-[35rem] rounded-lg bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-100 saturate-100 backdrop-contrast-50 bg-white px-3 py-4">
-          <ExperienceForm />
+          <ExperienceForm resume={currentResume} />
           <div className="mt-4">
             <EducationForm />
           </div>

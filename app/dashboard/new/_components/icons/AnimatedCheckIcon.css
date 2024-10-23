@@ -1,0 +1,26 @@
+.checkmark {
+  width: 32px;
+  height: 32px;
+  stroke-width: 3;
+  stroke: green;
+  stroke-miterlimit: 10;
+  fill: none;
+  stroke-linecap: round;
+  position: absolute;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+}
+
+.checkmark__check {
+  stroke: white;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  transition: stroke-dashoffset 0.2s ease-in-out 0.2s;
+}
+
+.animate .checkmark__check {
+  stroke-dashoffset: 0;
+}

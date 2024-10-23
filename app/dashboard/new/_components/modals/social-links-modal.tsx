@@ -1,44 +1,46 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { Drawer } from "vaul";
 import SpinnerIcon from "../icons/spinner-icon";
-import axios from "axios";
+import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { Drawer } from "vaul";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { Input } from "@/components/ui/input";
 
-interface SecondaryInformationModalProps {
+interface SocialLinksModalProps {
   open: boolean;
   setIsOpen: () => void;
   handleClose: () => void;
 }
 
-const SecondaryInformationModal = ({
+const SocialLinksModal = ({
   handleClose,
   open,
   setIsOpen,
-}: SecondaryInformationModalProps) => {
+}: SocialLinksModalProps) => {
   const params = useParams();
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [websiteUrl, setWebsiteUrl] = useState("");
-  const [location, setLocation] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [telegram, setTelegram] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [linkedn, setLinkedn] = useState("");
+  const [website, setWebsite] = useState("");
 
   const handleSave = async () => {
     try {
       setLoading(true);
       const obj = {
-        email,
-        phone,
-        websiteUrl,
-        location,
+        socialLinks: [
+          { platform: "telegram", url: telegram },
+          { platform: "instagram", url: instagram },
+          { platform: "linkedn", url: linkedn },
+          { platform: "website", url: website },
+        ],
       };
-      await axios.patch(`/api/resume/${params?.id}`, obj);
+      await axios.patch(`/api/resume/${params?.id}/social`, obj);
       toast.success("Success");
       handleClose();
       router.refresh();
@@ -67,54 +69,53 @@ const SecondaryInformationModal = ({
               />
 
               {/* Form */}
-              <div className="flex flex-col gap-y-4 w-full items-center py-3">
+              <div className="flex flex-col gap-y-4 w-full items-center py-3 overflow-y-auto max-h-[20rem]">
+                {/* Telegram link */}
                 <div className="w-full max-w-md">
-                  <label htmlFor="email" className="font-bold">
-                    Email
+                  <label htmlFor="telegram" className="font-bold">
+                    Telegram link
                   </label>
                   <Input
-                    id="email"
-                    placeholder="Enter email..."
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    id="telegram"
+                    placeholder="Enter telegram link..."
+                    value={telegram}
+                    onChange={(e) => setTelegram(e.target.value)}
                   />
                 </div>
-
-                {/* Phone */}
+                {/* Instagram */}
                 <div className="w-full max-w-md">
-                  <label htmlFor="phone" className="font-bold">
-                    Phone
+                  <label htmlFor="instagram" className="font-bold">
+                    Instagram link
                   </label>
                   <Input
-                    id="phone"
-                    placeholder="Enter phone..."
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    id="instagram"
+                    placeholder="Enter instagram link..."
+                    value={instagram}
+                    onChange={(e) => setInstagram(e.target.value)}
                   />
                 </div>
-
-                {/* Website url */}
+                {/* Linkedn */}
                 <div className="w-full max-w-md">
-                  <label htmlFor="websiteUrl" className="font-bold">
-                    Website Url
+                  <label htmlFor="linkedn" className="font-bold">
+                    Linkedn link
                   </label>
                   <Input
-                    id="websiteUrl"
-                    placeholder="Enter website url..."
-                    value={websiteUrl}
-                    onChange={(e) => setWebsiteUrl(e.target.value)}
+                    id="linkedn"
+                    placeholder="Enter linkedn link..."
+                    value={linkedn}
+                    onChange={(e) => setLinkedn(e.target.value)}
                   />
                 </div>
-                {/* Location */}
+                {/* Website */}
                 <div className="w-full max-w-md">
-                  <label htmlFor="location" className="font-bold">
-                    Location
+                  <label htmlFor="website" className="font-bold">
+                    Website link
                   </label>
                   <Input
-                    id="location"
-                    placeholder="Enter location..."
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    id="website"
+                    placeholder="Enter website link..."
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
                   />
                 </div>
               </div>
@@ -144,4 +145,4 @@ const SecondaryInformationModal = ({
   );
 };
 
-export default SecondaryInformationModal;
+export default SocialLinksModal;

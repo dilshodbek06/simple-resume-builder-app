@@ -7,7 +7,7 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { languages } = await req.json();
+    const { socialLinks } = await req.json();
 
     const { userId } = auth();
 
@@ -30,11 +30,11 @@ export async function PATCH(
     }
 
     const result = await Promise.all(
-      languages.map(async (language: { name: string; rate: number }) => {
-        await prisma.language.create({
+      socialLinks.map(async (socialLink: { platform: string; url: string }) => {
+        await prisma.socialLink.create({
           data: {
-            name: language.name,
-            rate: language.rate,
+            platform: socialLink.platform,
+            url: socialLink.url,
             resumeId: params.id,
           },
         });
@@ -43,7 +43,7 @@ export async function PATCH(
 
     return NextResponse.json(result);
   } catch (error) {
-    console.log("[UPDATE_LANGUAGE_RESUME]", error);
+    console.log("[UPDATE_SOCIAL_RESUME]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

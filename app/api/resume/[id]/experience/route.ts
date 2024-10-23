@@ -7,7 +7,7 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { languages } = await req.json();
+    const { experiences } = await req.json();
 
     const { userId } = auth();
 
@@ -30,20 +30,31 @@ export async function PATCH(
     }
 
     const result = await Promise.all(
-      languages.map(async (language: { name: string; rate: number }) => {
-        await prisma.language.create({
-          data: {
-            name: language.name,
-            rate: language.rate,
-            resumeId: params.id,
-          },
-        });
-      })
+      experiences.map(
+        async (item: {
+          companyName: string;
+          profession: string;
+          startDate: Date;
+          endDate: Date;
+          description: string;
+        }) => {
+          await prisma.experience.create({
+            data: {
+              companyName: item.companyName,
+              description: item.description,
+              jobProfession: item.profession,
+              startDate: item.startDate,
+              endDate: item.endDate,
+              resumeId: params.id,
+            },
+          });
+        }
+      )
     );
 
     return NextResponse.json(result);
   } catch (error) {
-    console.log("[UPDATE_LANGUAGE_RESUME]", error);
+    console.log("[UPDATE_EXPERIENCE_RESUME]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

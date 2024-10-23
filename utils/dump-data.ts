@@ -9,7 +9,7 @@ import {
   Palette,
   Utensils,
 } from "lucide-react";
-import { BiFootball } from "react-icons/bi";
+import { IoMdFootball } from "react-icons/io";
 
 export const languages = [
   {
@@ -84,7 +84,7 @@ export const hobbies = [
   {
     id: 4,
     name: "Football",
-    icon: BiFootball,
+    icon: IoMdFootball,
   },
   {
     id: 5,

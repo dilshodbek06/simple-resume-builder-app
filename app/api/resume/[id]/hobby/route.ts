@@ -7,7 +7,7 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { languages } = await req.json();
+    const { hobbies } = await req.json();
 
     const { userId } = auth();
 
@@ -30,11 +30,10 @@ export async function PATCH(
     }
 
     const result = await Promise.all(
-      languages.map(async (language: { name: string; rate: number }) => {
-        await prisma.language.create({
+      hobbies.map(async (hobby:string) => {
+        await prisma.hobby.create({
           data: {
-            name: language.name,
-            rate: language.rate,
+            name: hobby,
             resumeId: params.id,
           },
         });
@@ -43,7 +42,7 @@ export async function PATCH(
 
     return NextResponse.json(result);
   } catch (error) {
-    console.log("[UPDATE_LANGUAGE_RESUME]", error);
+    console.log("[UPDATE_HOBBY_RESUME]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

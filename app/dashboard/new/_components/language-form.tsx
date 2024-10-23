@@ -25,9 +25,9 @@ const LanguageForm = ({ resume }: LanguageFormProps) => {
           ))
         ) : (
           <>
-            <LanguageLevel language="Language name" level={1} />
-            <LanguageLevel language="Language name" level={5} />
-            <LanguageLevel language="Language name" level={3} />
+            <LanguageLevel language="Language1" level={1} />
+            <LanguageLevel language="Language2" level={5} />
+            <LanguageLevel language="Language3" level={3} />
           </>
         )}
       </div>
