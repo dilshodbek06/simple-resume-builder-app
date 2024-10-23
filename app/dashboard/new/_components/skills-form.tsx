@@ -2,8 +2,19 @@
 
 import ProgressBar from "@/components/shared/progress-bar";
 import EditIcon from "./icons/edit-icon";
+import { Resume, Skill } from "@prisma/client";
+import SkillsModal from "./modals/skills-modal";
+import { useState } from "react";
 
-const SkillsForm = () => {
+interface SkillsFormProps {
+  resume: Resume & {
+    skills: Skill[];
+  };
+}
+
+const SkillsForm = ({ resume }: SkillsFormProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="relative group">
       <div className="flex items-center">
@@ -12,57 +23,74 @@ const SkillsForm = () => {
         </div>
         <div className="h-[2px] bg-neutral-700 w-full rounded-md"></div>
       </div>
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 ">
-        <ProgressBar
-          imgSrc="./images/facebook.svg"
-          percentage={70}
-          name="HTML"
-        />
-        <ProgressBar
-          imgSrc="./images/facebook.svg"
-          percentage={30}
-          name="CSS"
-        />
-        <ProgressBar
-          imgSrc="./images/facebook.svg"
-          percentage={90}
-          name="Javascript"
-        />
-        <ProgressBar
-          imgSrc="./images/facebook.svg"
-          percentage={90}
-          name="Javascript"
-        />
-        <ProgressBar
-          imgSrc="./images/facebook.svg"
-          percentage={90}
-          name="Javascript"
-        />
-        <ProgressBar
-          imgSrc="./images/facebook.svg"
-          percentage={90}
-          name="Javascript"
-        />
-        <ProgressBar
-          imgSrc="./images/facebook.svg"
-          percentage={90}
-          name="Javascript"
-        />
-        <ProgressBar
-          imgSrc="./images/facebook.svg"
-          percentage={90}
-          name="Javascript"
-        />
-        <ProgressBar
-          imgSrc="./images/facebook.svg"
-          percentage={90}
-          name="Javascript"
-        />
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+        {resume.skills.length > 0 ? (
+          resume.skills.map((item, ind) => (
+            <ProgressBar
+              key={ind}
+              imgSrc={item.imageUrl}
+              percentage={item.knowledgePct}
+              name={item.name}
+            />
+          ))
+        ) : (
+          <>
+            <ProgressBar
+              imgSrc="./images/facebook.svg"
+              percentage={30}
+              name="CSS"
+            />
+            <ProgressBar
+              imgSrc="./images/facebook.svg"
+              percentage={90}
+              name="Javascript"
+            />
+            <ProgressBar
+              imgSrc="./images/facebook.svg"
+              percentage={90}
+              name="Javascript"
+            />
+            <ProgressBar
+              imgSrc="./images/facebook.svg"
+              percentage={90}
+              name="Javascript"
+            />
+            <ProgressBar
+              imgSrc="./images/facebook.svg"
+              percentage={90}
+              name="Javascript"
+            />
+            <ProgressBar
+              imgSrc="./images/facebook.svg"
+              percentage={90}
+              name="Javascript"
+            />
+            <ProgressBar
+              imgSrc="./images/facebook.svg"
+              percentage={90}
+              name="Javascript"
+            />
+            <ProgressBar
+              imgSrc="./images/facebook.svg"
+              percentage={90}
+              name="Javascript"
+            />
+          </>
+        )}
       </div>
       {/* Edit Button */}
-      <button className="absolute inset-0 bg-black bg-opacity-25 rounded-md text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center ">
+      <button
+        onClick={() => setIsOpen(true)}
+        className="absolute inset-0 bg-black bg-opacity-25 rounded-md text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center "
+      >
         <EditIcon />
       </button>
+
+      <SkillsModal
+        handleClose={() => setIsOpen(false)}
+        open={isOpen}
+        setIsOpen={() => setIsOpen(false)}
+      />
     </div>
   );
 };

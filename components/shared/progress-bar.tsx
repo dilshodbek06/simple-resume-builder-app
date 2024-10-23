@@ -22,11 +22,11 @@ const ProgressBar: React.FC<CircularProgressBarProps> = ({
       <div className="relative flex items-center justify-center">
         {/* Image in the center */}
         <Image
-          src={"/images/user.svg"}
+          src={imgSrc ? imgSrc : "/images/user.svg"}
           alt="center image"
           className="absolute rounded-full"
-          width={65}
-          height={65}
+          width={55}
+          height={55}
         />
 
         {/* Circular Progress Bar */}

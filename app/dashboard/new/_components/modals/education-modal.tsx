@@ -8,7 +8,6 @@ import SpinnerIcon from "../icons/spinner-icon";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Popover,
   PopoverContent,
@@ -20,36 +19,36 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 
-interface ExperienceFormData {
-  companyName: string;
-  profession: string;
+interface EducationFormData {
+  university: string;
+  course: string;
+  location: string;
   startDate: Date | undefined;
   endDate: Date | undefined;
-  description: string;
 }
 
-interface ExperiencesModalProps {
+interface EducationModalProps {
   open: boolean;
   setIsOpen: () => void;
   handleClose: () => void;
 }
 
-const ExperiencesModal = ({
+const EducationModal = ({
   handleClose,
   open,
   setIsOpen,
-}: ExperiencesModalProps) => {
+}: EducationModalProps) => {
   const params = useParams();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState<ExperienceFormData[]>([
+  const [formData, setFormData] = useState<EducationFormData[]>([
     {
-      companyName: "",
-      profession: "",
+      university: "",
+      course: "",
       startDate: undefined,
       endDate: undefined,
-      description: "",
+      location: "",
     },
   ]);
 
@@ -58,11 +57,11 @@ const ExperiencesModal = ({
       setFormData([
         ...formData,
         {
-          companyName: "",
-          profession: "",
+          university: "",
+          course: "",
           startDate: undefined,
           endDate: undefined,
-          description: "",
+          location: "",
         },
       ]);
     } else {
@@ -77,7 +76,7 @@ const ExperiencesModal = ({
 
   const handleInputChange = (
     index: number,
-    field: keyof ExperienceFormData,
+    field: keyof EducationFormData,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any
   ) => {
@@ -90,9 +89,9 @@ const ExperiencesModal = ({
     try {
       setLoading(true);
       const obj = {
-        experiences: formData,
+        educations: formData,
       };
-      await axios.patch(`/api/resume/${params?.id}/experience`, obj);
+      await axios.patch(`/api/resume/${params?.id}/education`, obj);
       toast.success("Success");
       handleClose();
       router.refresh();
@@ -130,37 +129,30 @@ const ExperiencesModal = ({
                   <div key={index} className="rounded-md py-2 px-1 w-full mb-4">
                     <div className="w-full max-w-md mx-auto">
                       <label
-                        htmlFor={`company_name_${index}`}
+                        htmlFor={`university_name_${index}`}
                         className="font-bold"
                       >
-                        Company name
+                        University name
                       </label>
                       <Input
-                        id={`company_name_${index}`}
-                        placeholder="Enter Company name..."
-                        value={form.companyName}
+                        id={`university_name_${index}`}
+                        placeholder="Enter University name..."
+                        value={form.university}
                         onChange={(e) =>
-                          handleInputChange(
-                            index,
-                            "companyName",
-                            e.target.value
-                          )
+                          handleInputChange(index, "university", e.target.value)
                         }
                       />
                     </div>
                     <div className="w-full max-w-md mx-auto my-4">
-                      <label
-                        htmlFor={`profession_${index}`}
-                        className="font-bold"
-                      >
-                        Your Profession
+                      <label htmlFor={`course_${index}`} className="font-bold">
+                        Your Course name
                       </label>
                       <Input
-                        id={`profession_${index}`}
-                        placeholder="Enter Profession..."
-                        value={form.profession}
+                        id={`course_${index}`}
+                        placeholder="Enter Course..."
+                        value={form.course}
                         onChange={(e) =>
-                          handleInputChange(index, "profession", e.target.value)
+                          handleInputChange(index, "course", e.target.value)
                         }
                       />
                     </div>
@@ -240,23 +232,19 @@ const ExperiencesModal = ({
                         </Popover>
                       </div>
                     </div>
-                    <div className="w-full max-w-md mx-auto mt-3">
+                    <div className="w-full max-w-md mx-auto my-4">
                       <label
-                        htmlFor={`description_${index}`}
+                        htmlFor={`location_${index}`}
                         className="font-bold"
                       >
-                        Short description
+                        Your Location
                       </label>
-                      <Textarea
-                        id={`description_${index}`}
-                        placeholder="Describe your works in this company..."
-                        value={form.description}
+                      <Input
+                        id={`location_${index}`}
+                        placeholder="Enter Location..."
+                        value={form.location}
                         onChange={(e) =>
-                          handleInputChange(
-                            index,
-                            "description",
-                            e.target.value
-                          )
+                          handleInputChange(index, "location", e.target.value)
                         }
                       />
                     </div>
@@ -279,7 +267,11 @@ const ExperiencesModal = ({
 
               {/* Add New Button */}
               <div className="flex justify-end w-full ">
-                <Button className="md:mr-4" variant="secondary" onClick={handleAddNewForm}>
+                <Button
+                  className="md:mr-4"
+                  variant="secondary"
+                  onClick={handleAddNewForm}
+                >
                   Add New
                 </Button>
               </div>
@@ -309,4 +301,4 @@ const ExperiencesModal = ({
   );
 };
 
-export default ExperiencesModal;
+export default EducationModal;
