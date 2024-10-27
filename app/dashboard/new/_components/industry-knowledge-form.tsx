@@ -45,6 +45,7 @@ const IndustryKnowledgeForm = ({ resume }: IndustryKnowledgeFormProps) => {
         handleClose={() => setIsOpen(false)}
         open={isOpen}
         setIsOpen={() => setIsOpen(false)}
+        initialState={resume.industryKnowledge}
       />
     </div>
   );

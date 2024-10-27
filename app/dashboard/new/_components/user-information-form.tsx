@@ -50,6 +50,12 @@ const UserInformationForm = ({ resume }: UserInformationFormProps) => {
         handleClose={() => setIsOpen(false)}
         open={isOpen}
         setIsOpen={() => setIsOpen(false)}
+        initialState={{
+          firstname: resume.firstName,
+          lastname: resume.lastName,
+          jobProfession: resume.jobProfession,
+          imageUrl: resume.imageUrl,
+        }}
       />
     </div>
   );

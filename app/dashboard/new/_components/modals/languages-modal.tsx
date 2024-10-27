@@ -18,11 +18,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Language } from "@prisma/client";
 
 interface LanguagesModalProps {
   open: boolean;
   setIsOpen: () => void;
   handleClose: () => void;
+  initialState: {
+    languages: Language[];
+  };
 }
 
 interface LanguageItem {
@@ -34,12 +38,15 @@ const LanguagesModal = ({
   handleClose,
   open,
   setIsOpen,
+  initialState,
 }: LanguagesModalProps) => {
   const params = useParams();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<LanguageItem[]>([]);
+  const [selectedItems, setSelectedItems] = useState<LanguageItem[]>(
+    initialState.languages || []
+  );
 
   const handleChange = (
     checked: boolean,
@@ -106,6 +113,9 @@ const LanguagesModal = ({
                   >
                     <div className="flex items-center gap-x-3">
                       <Checkbox
+                        checked={selectedItems.some(
+                          (selected) => selected.name === item.name
+                        )}
                         onCheckedChange={(e) =>
                           handleChange(e as boolean, item)
                         }
@@ -116,6 +126,11 @@ const LanguagesModal = ({
 
                     <div>
                       <Select
+                        value={
+                          selectedItems
+                            .find((selected) => selected.name === item.name)
+                            ?.rate.toString() || ""
+                        }
                         onValueChange={(value) =>
                           handleLevelChange(parseInt(value), item.name)
                         }

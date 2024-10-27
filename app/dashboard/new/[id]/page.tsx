@@ -11,12 +11,15 @@ import EducationForm from "../_components/education-form";
 import SkillsForm from "../_components/skills-form";
 import { redirect } from "next/navigation";
 
+import { GrLinkNext } from "react-icons/gr";
+
 const OneResumePage = async ({
   params: { id },
 }: {
   params: { id: string };
 }) => {
   const { userId } = auth();
+
   const currentResume = await prisma.resume.findUnique({
     where: {
       id: id,
@@ -38,10 +41,10 @@ const OneResumePage = async ({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-500 via-purple-600 to-pink-500 flex  justify-center items-center py-4">
+    <div className="min-h-screen bg-gradient-to-b from-sky-500  via-purple-600 to-pink-500 flex justify-center items-center py-4 relative">
       <div className="flex flex-col md:flex-row gap-x-2">
         {/* left side */}
-        <div className="w-[25rem] min-h-[35rem] rounded-lg bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100 bg-gray-300 px-3 py-4">
+        <div className="max-w-[25rem] min-h-[35rem] rounded-lg bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100 bg-gray-300 px-3 py-4">
           {/* name, profile image */}
           <UserInformationForm resume={currentResume} />
           {/* email, location  */}
@@ -64,15 +67,20 @@ const OneResumePage = async ({
           </div>
         </div>
         {/* right side */}
-        <div className="w-[25rem] min-h-[35rem] rounded-lg bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-100 saturate-100 backdrop-contrast-50 bg-white px-3 py-4">
+        <div className="max-w-[25rem] min-h-[35rem] rounded-lg bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-100 saturate-100 backdrop-contrast-50 bg-white px-3 py-4">
           <ExperienceForm resume={currentResume} />
           <div className="mt-4">
             <EducationForm resume={currentResume} />
           </div>
           <div className="mt-2">
-            <SkillsForm resume={currentResume}/>
+            <SkillsForm resume={currentResume} />
           </div>
         </div>
+      </div>
+      <div className="fixed bottom-5 right-5 ">
+        <button className="overflow-hidden group bg-cyan-500 relative hover:bg-gradient-to-r hover:from-cyan-500 hover:to-cyan-400 text-white hover:ring-2 hover:ring-offset-2         hover:ring-cyan-400 transition-all ease-out duration-300 p-3 hover:scale-105 rounded-full">
+          <GrLinkNext size={20} />
+        </button>
       </div>
     </div>
   );

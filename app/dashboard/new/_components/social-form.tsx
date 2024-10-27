@@ -70,6 +70,7 @@ const SocialForm = ({ resume }: SocialFormProps) => {
         handleClose={() => setIsOpen(false)}
         open={isOpen}
         setIsOpen={() => setIsOpen(false)}
+        initialState={{ socialLinks: resume.socialLinks }}
       />
     </div>
   );

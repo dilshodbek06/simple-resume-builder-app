@@ -2,27 +2,42 @@
 
 import { Button } from "@/components/ui/button";
 import SpinnerIcon from "../icons/spinner-icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Drawer } from "vaul";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { hobbies } from "@/utils/dump-data";
 import AnimatedCheckIcon from "../icons/animated-check-icon";
+import { Hobby } from "@prisma/client";
 
 interface HobbiesModalProps {
   open: boolean;
   setIsOpen: () => void;
   handleClose: () => void;
+  initialState: {
+    hobbies: Hobby[];
+  };
 }
 
-const HobbiesModal = ({ handleClose, open, setIsOpen }: HobbiesModalProps) => {
+const HobbiesModal = ({
+  handleClose,
+  open,
+  setIsOpen,
+  initialState,
+}: HobbiesModalProps) => {
   const params = useParams();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
 
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (initialState && initialState.hobbies) {
+      setSelectedHobbies(initialState.hobbies.map((hobby) => hobby.name));
+    }
+  }, [initialState]);
 
   const handleHobbyClick = (name: string) => {
     setSelectedHobbies((prevSelected) => {

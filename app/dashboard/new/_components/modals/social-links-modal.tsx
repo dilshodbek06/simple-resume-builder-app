@@ -2,23 +2,28 @@
 
 import { Button } from "@/components/ui/button";
 import SpinnerIcon from "../icons/spinner-icon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Drawer } from "vaul";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
+import { SocialLink } from "@prisma/client";
 
 interface SocialLinksModalProps {
   open: boolean;
   setIsOpen: () => void;
   handleClose: () => void;
+  initialState?: {
+    socialLinks: SocialLink[];
+  };
 }
 
 const SocialLinksModal = ({
   handleClose,
   open,
   setIsOpen,
+  initialState,
 }: SocialLinksModalProps) => {
   const params = useParams();
   const router = useRouter();
@@ -28,6 +33,23 @@ const SocialLinksModal = ({
   const [instagram, setInstagram] = useState("");
   const [linkedn, setLinkedn] = useState("");
   const [website, setWebsite] = useState("");
+
+  useEffect(() => {
+    if (initialState?.socialLinks) {
+      const links = initialState.socialLinks.reduce(
+        (acc: Record<string, string>, link) => {
+          acc[link.platform] = link.url;
+          return acc;
+        },
+        {}
+      );
+
+      setTelegram(links.telegram || "");
+      setInstagram(links.instagram || "");
+      setLinkedn(links.linkedn || "");
+      setWebsite(links.website || "");
+    }
+  }, [initialState]);
 
   const handleSave = async () => {
     try {

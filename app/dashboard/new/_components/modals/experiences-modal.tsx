@@ -279,7 +279,11 @@ const ExperiencesModal = ({
 
               {/* Add New Button */}
               <div className="flex justify-end w-full ">
-                <Button className="md:mr-4" variant="secondary" onClick={handleAddNewForm}>
+                <Button
+                  className="md:mr-4"
+                  variant="secondary"
+                  onClick={handleAddNewForm}
+                >
                   Add New
                 </Button>
               </div>

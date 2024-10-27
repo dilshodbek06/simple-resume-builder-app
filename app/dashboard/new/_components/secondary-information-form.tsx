@@ -22,7 +22,6 @@ const SecondaryInformationForm = ({
       <div className="rounded-xl px-6 py-3 flex items-center gap-x-6 md:gap-x-12 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100">
         <FaEnvelope className="fill-white text-3xl" />
         <p className="text-white text-xl">
-          {" "}
           {resume.email ? resume.email : "email87@gmail.com"}
         </p>
       </div>
@@ -55,6 +54,12 @@ const SecondaryInformationForm = ({
         handleClose={() => setIsOpen(false)}
         open={isOpen}
         setIsOpen={() => setIsOpen(false)}
+        initialState={{
+          email: resume.email,
+          phone: resume.phone,
+          websiteUrl: resume.websiteUrl,
+          location: resume.location,
+        }}
       />
     </div>
   );

@@ -13,20 +13,27 @@ interface SecondaryInformationModalProps {
   open: boolean;
   setIsOpen: () => void;
   handleClose: () => void;
+  initialState: {
+    email: string | null;
+    phone: string | null;
+    websiteUrl: string | null;
+    location: string | null;
+  };
 }
 
 const SecondaryInformationModal = ({
   handleClose,
   open,
   setIsOpen,
+  initialState,
 }: SecondaryInformationModalProps) => {
   const params = useParams();
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [websiteUrl, setWebsiteUrl] = useState("");
-  const [location, setLocation] = useState<string>("");
+  const [email, setEmail] = useState(initialState.email || "");
+  const [phone, setPhone] = useState(initialState.phone || "");
+  const [websiteUrl, setWebsiteUrl] = useState(initialState.websiteUrl || "");
+  const [location, setLocation] = useState<string>(initialState.location || "");
   const [loading, setLoading] = useState(false);
 
   const handleSave = async () => {

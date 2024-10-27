@@ -101,6 +101,7 @@ const HobbiesForm = ({ resume }: HobbiesFormProps) => {
         handleClose={() => setIsOpen(false)}
         open={isOpen}
         setIsOpen={() => setIsOpen(false)}
+        initialState={{ hobbies: resume.hobbies }}
       />
     </div>
   );

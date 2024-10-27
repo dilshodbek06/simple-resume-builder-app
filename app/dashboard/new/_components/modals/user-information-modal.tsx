@@ -15,20 +15,31 @@ interface UserInformationModalProps {
   open: boolean;
   setIsOpen: () => void;
   handleClose: () => void;
+  initialState: {
+    firstname: string | null;
+    lastname: string | null;
+    jobProfession: string | null;
+    imageUrl: string | null;
+  };
 }
 
 const UserInformationModal = ({
   open,
   setIsOpen,
   handleClose,
+  initialState,
 }: UserInformationModalProps) => {
   const params = useParams();
   const router = useRouter();
 
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [profession, setProfession] = useState("");
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [firstname, setFirstname] = useState(initialState.firstname || "");
+  const [lastname, setLastname] = useState(initialState.lastname || "");
+  const [profession, setProfession] = useState(
+    initialState.jobProfession || ""
+  );
+  const [profileImage, setProfileImage] = useState<string | null>(
+    initialState.imageUrl || null
+  );
   const [loading, setLoading] = useState(false);
 
   const handleSave = async () => {

@@ -42,6 +42,7 @@ const LanguageForm = ({ resume }: LanguageFormProps) => {
         handleClose={() => setIsOpen(false)}
         open={isOpen}
         setIsOpen={() => setIsOpen(false)}
+        initialState={{ languages: resume.languages }}
       />
     </div>
   );

@@ -14,25 +14,27 @@ interface IndustryModalProps {
   open: boolean;
   setIsOpen: () => void;
   handleClose: () => void;
+  initialState: string[];
 }
 
 const IndustryModal = ({
   handleClose,
   open,
   setIsOpen,
+  initialState,
 }: IndustryModalProps) => {
   const params = useParams();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<string[]>(
+    initialState || []
+  );
 
   const handleChange = (checked: boolean, x: { id: number; name: string }) => {
     if (checked) {
-      // Add item to selectedItems array
       setSelectedItems((prev) => [...prev, x.name]);
     } else {
-      // Remove item from selectedItems array
       setSelectedItems((prev) => prev.filter((item) => item !== x.name));
     }
   };
@@ -80,6 +82,7 @@ const IndustryModal = ({
                     className="max-w-md w-full mx-auto flex items-center gap-x-4 cursor-pointer"
                   >
                     <Checkbox
+                      checked={selectedItems.includes(item.name)}
                       onCheckedChange={(e) => handleChange(e as boolean, item)}
                       id={item.id.toString()}
                     />
