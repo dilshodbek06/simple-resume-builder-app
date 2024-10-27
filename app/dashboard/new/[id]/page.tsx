@@ -11,7 +11,7 @@ import EducationForm from "../_components/education-form";
 import SkillsForm from "../_components/skills-form";
 import { redirect } from "next/navigation";
 
-import { GrLinkNext } from "react-icons/gr";
+import { FaFileDownload } from "react-icons/fa";
 
 const OneResumePage = async ({
   params: { id },
@@ -78,8 +78,11 @@ const OneResumePage = async ({
         </div>
       </div>
       <div className="fixed bottom-5 right-5 ">
-        <button className="overflow-hidden group bg-cyan-500 relative hover:bg-gradient-to-r hover:from-cyan-500 hover:to-cyan-400 text-white hover:ring-2 hover:ring-offset-2         hover:ring-cyan-400 transition-all ease-out duration-300 p-3 hover:scale-105 rounded-full">
-          <GrLinkNext size={20} />
+        <button
+          title="download pdf"
+          className="overflow-hidden group bg-cyan-500 relative hover:bg-gradient-to-r hover:from-cyan-500 hover:to-cyan-400 text-white hover:ring-2 hover:ring-offset-2         hover:ring-cyan-400 transition-all ease-out duration-300 p-3 hover:scale-105 rounded-full"
+        >
+          <FaFileDownload size={20} />
         </button>
       </div>
     </div>

@@ -3,8 +3,12 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const { user } = useUser();
+  const router = useRouter();
   return (
     <header className="py-4 px-4 sm:px-10 z-50 min-h-[70px] container mx-auto max-w-[84rem]">
       <div className="relative flex flex-wrap items-center gap-4">
@@ -65,9 +69,22 @@ const Header = () => {
         </div>
 
         <div className="flex ml-auto">
-          <Button className="px-6 py-5 rounded-xl text-white bg-cyan-900 transition-all hover:bg-cyan-800">
-            Login
-          </Button>
+          {user ? (
+            <Button
+              onClick={() => router.push("/dashboard")}
+              className="px-6 py-5 rounded-xl text-white bg-cyan-900 transition-all hover:bg-cyan-800"
+            >
+              Dashboard
+            </Button>
+          ) : (
+            <Button
+              onClick={() => router.push("/sign-in")}
+              className="px-6 py-5 rounded-xl text-white bg-cyan-900 transition-all hover:bg-cyan-800"
+            >
+              Login
+            </Button>
+          )}
+
           <button className="lg:hidden ml-7">
             <svg
               className="w-7 h-7"
