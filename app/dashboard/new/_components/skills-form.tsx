@@ -35,46 +35,14 @@ const SkillsForm = ({ resume }: SkillsFormProps) => {
           ))
         ) : (
           <>
-            <ProgressBar
-              imgSrc="./images/facebook.svg"
-              percentage={30}
-              name="CSS"
-            />
-            <ProgressBar
-              imgSrc="./images/facebook.svg"
-              percentage={90}
-              name="Javascript"
-            />
-            <ProgressBar
-              imgSrc="./images/facebook.svg"
-              percentage={90}
-              name="Javascript"
-            />
-            <ProgressBar
-              imgSrc="./images/facebook.svg"
-              percentage={90}
-              name="Javascript"
-            />
-            <ProgressBar
-              imgSrc="./images/facebook.svg"
-              percentage={90}
-              name="Javascript"
-            />
-            <ProgressBar
-              imgSrc="./images/facebook.svg"
-              percentage={90}
-              name="Javascript"
-            />
-            <ProgressBar
-              imgSrc="./images/facebook.svg"
-              percentage={90}
-              name="Javascript"
-            />
-            <ProgressBar
-              imgSrc="./images/facebook.svg"
-              percentage={90}
-              name="Javascript"
-            />
+            {[1, 1, 1, 1, 1, 1].map((_, ind) => (
+              <ProgressBar
+                key={ind}
+                imgSrc="/images/skills/react.svg"
+                percentage={30}
+                name="Name"
+              />
+            ))}
           </>
         )}
       </div>

@@ -19,7 +19,7 @@ const DashboardPage = () => {
   const [resumes, setResumes] = useState<Resume[]>([]);
 
   const commonClassNames =
-    "md:p-8 p-4 w-32 md:w-auto border-2 border-gray-700 rounded-md bg-gray-50 bg-clip-padding backdrop-filter backdrop-blur bg-opacity-60 saturate-100 backdrop-contrast-100 transition-all hover:scale-105 duration-300 shadow-lg";
+    "md:p-8 p-4 w-32 border-2 border-gray-700 rounded-md bg-gray-50 bg-clip-padding backdrop-filter backdrop-blur bg-opacity-60 saturate-100 backdrop-contrast-100 transition-all hover:scale-105 duration-300 shadow-lg text-center flex justify-center items-center flex-col";
 
   useEffect(() => {
     const fetchResumes = async () => {
@@ -45,7 +45,7 @@ const DashboardPage = () => {
           key={ind}
           className={commonClassNames}
         >
-          <FiFileText size={40} className="text-gray-700 mx-auto" />
+          <FiFileText size={40} className="text-gray-700" />
           <p className="text-gray-700 text-xl mt-3">{item?.title}</p>
         </div>
       )),
