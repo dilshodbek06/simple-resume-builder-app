@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
+import { Experience } from "@prisma/client";
 
 interface ExperienceFormData {
   companyName: string;
@@ -32,26 +33,44 @@ interface ExperiencesModalProps {
   open: boolean;
   setIsOpen: () => void;
   handleClose: () => void;
+  initialState: {
+    experiences: Experience[];
+  };
 }
 
 const ExperiencesModal = ({
   handleClose,
   open,
   setIsOpen,
+  initialState,
 }: ExperiencesModalProps) => {
   const params = useParams();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState<ExperienceFormData[]>([
-    {
-      companyName: "",
-      profession: "",
-      startDate: undefined,
-      endDate: undefined,
-      description: "",
-    },
-  ]);
+  const [formData, setFormData] = useState<ExperienceFormData[]>(
+    initialState.experiences.length > 0
+      ? initialState.experiences.map((experience) => ({
+          companyName: experience.companyName,
+          profession: experience.jobProfession,
+          startDate: experience.startDate
+            ? new Date(experience.startDate)
+            : undefined,
+          endDate: experience.endDate
+            ? new Date(experience.endDate)
+            : undefined,
+          description: experience.description,
+        }))
+      : [
+          {
+            companyName: "",
+            profession: "",
+            startDate: undefined,
+            endDate: undefined,
+            description: "",
+          },
+        ]
+  );
 
   const handleAddNewForm = () => {
     if (formData.length < 3) {

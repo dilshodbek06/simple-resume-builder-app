@@ -74,6 +74,7 @@ const EducationForm = ({ resume }: EducationFormProps) => {
         handleClose={() => setIsOpen(false)}
         open={isOpen}
         setIsOpen={() => setIsOpen(false)}
+        initialState={{ educations: resume.educations }}
       />
     </div>
   );

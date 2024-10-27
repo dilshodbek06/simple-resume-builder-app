@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Drawer } from "vaul";
 import SpinnerIcon from "../icons/spinner-icon";
 import axios from "axios";
@@ -11,25 +11,46 @@ import { skills } from "@/utils/dump-data";
 import Image from "next/image";
 import AnimatedCheckIcon from "../icons/animated-check-icon";
 import { Slider } from "@/components/ui/slider";
+import { Skill } from "@prisma/client";
 
 interface SkillsModalProps {
   open: boolean;
   setIsOpen: () => void;
   handleClose: () => void;
+  initialState: {
+    skills: Skill[];
+  };
 }
 
-type Skill = {
+type SkillType = {
   name: string;
   imageUrl: string;
   knowledgePct: number;
 };
 
-const SkillsModal = ({ handleClose, open, setIsOpen }: SkillsModalProps) => {
+const SkillsModal = ({
+  handleClose,
+  open,
+  setIsOpen,
+  initialState,
+}: SkillsModalProps) => {
   const params = useParams();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
+  const [selectedSkills, setSelectedSkills] = useState<SkillType[]>([]);
+
+  useEffect(() => {
+    if (initialState.skills.length > 0) {
+      setSelectedSkills(
+        initialState.skills.map((skill) => ({
+          name: skill.name,
+          imageUrl: skill.imageUrl,
+          knowledgePct: skill.knowledgePct,
+        }))
+      );
+    }
+  }, [initialState.skills]);
 
   // Handle skill selection and unselection
   const handleSkillClick = (name: string, icon: string) => {

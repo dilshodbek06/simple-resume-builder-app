@@ -63,6 +63,10 @@ const UserInformationModal = ({
     }
   };
 
+  const handleDelete = () => {
+    setProfileImage(null);
+  };
+
   return (
     <div>
       <Drawer.Root open={open} onOpenChange={setIsOpen}>
@@ -87,6 +91,12 @@ const UserInformationModal = ({
                     <div className="overflow-hidden rounded-full relative w-[150px] h-[150px]">
                       <Image alt="profile image" src={profileImage} fill />
                     </div>
+                    <button
+                      onClick={handleDelete}
+                      className="p-1 w-6 h-6 flex justify-center items-center text-white bg-red-500 hover:bg-red-600 rounded-full "
+                    >
+                      x
+                    </button>
                   </div>
                 ) : (
                   <div className="w-full max-w-md">

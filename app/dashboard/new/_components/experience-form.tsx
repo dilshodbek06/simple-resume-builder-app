@@ -37,7 +37,9 @@ const ExperienceForm = ({ resume }: ExperienceFormProps) => {
               <p className="text-sm text-neutral-700">
                 {formatDateRange(item.startDate, item.endDate ?? new Date())}
               </p>
-              <p className="font-medium mt-1 text-sm line-clamp-4">{item.description}</p>
+              <p className="font-medium mt-1 text-sm line-clamp-4">
+                {item.description}
+              </p>
             </div>
           ))
         ) : (
@@ -87,6 +89,7 @@ const ExperienceForm = ({ resume }: ExperienceFormProps) => {
         handleClose={() => setIsOpen(false)}
         open={isOpen}
         setIsOpen={() => setIsOpen(false)}
+        initialState={{ experiences: resume.experiences }}
       />
     </div>
   );

@@ -43,3 +43,47 @@ export async function PATCH(
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    await req.json();
+
+    const { userId } = auth();
+
+    const currentUser = await prisma.user.findUnique({
+      where: {
+        clerkId: userId!,
+      },
+    });
+    if (!userId || !currentUser) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const currentResume = await prisma.resume.findUnique({
+      where: {
+        id: params.id,
+      },
+    });
+    if (!currentResume) {
+      return new NextResponse("Not found", { status: 404 });
+    }
+
+    const result = await prisma.resume.update({
+      where: {
+        id: params.id,
+        userId: currentUser.id,
+      },
+      data: {
+        imageUrl: null,
+      },
+    });
+
+    return NextResponse.json(result);
+  } catch (error) {
+    console.log("[DELETE_RESUME_PHOTO]", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}

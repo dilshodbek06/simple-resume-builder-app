@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
+import { Education } from "@prisma/client";
 
 interface EducationFormData {
   university: string;
@@ -31,26 +32,40 @@ interface EducationModalProps {
   open: boolean;
   setIsOpen: () => void;
   handleClose: () => void;
+  initialState: {
+    educations: Education[];
+  };
 }
 
 const EducationModal = ({
   handleClose,
   open,
   setIsOpen,
+  initialState,
 }: EducationModalProps) => {
   const params = useParams();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState<EducationFormData[]>([
-    {
-      university: "",
-      course: "",
-      startDate: undefined,
-      endDate: undefined,
-      location: "",
-    },
-  ]);
+  const [formData, setFormData] = useState<EducationFormData[]>(() =>
+    initialState.educations.length
+      ? initialState.educations.map((education) => ({
+          university: education.university,
+          course: education.course,
+          location: education.location,
+          startDate: education.startDate ?? undefined,
+          endDate: education.endDate ?? undefined,
+        }))
+      : [
+          {
+            university: "",
+            course: "",
+            startDate: undefined,
+            endDate: undefined,
+            location: "",
+          },
+        ]
+  );
 
   const handleAddNewForm = () => {
     if (formData.length < 3) {

@@ -90,6 +90,7 @@ const SkillsForm = ({ resume }: SkillsFormProps) => {
         handleClose={() => setIsOpen(false)}
         open={isOpen}
         setIsOpen={() => setIsOpen(false)}
+        initialState={{ skills: resume.skills }}
       />
     </div>
   );
