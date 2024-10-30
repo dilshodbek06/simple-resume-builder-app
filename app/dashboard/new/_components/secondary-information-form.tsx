@@ -19,25 +19,25 @@ const SecondaryInformationForm = ({
 
   return (
     <div className="flex flex-col gap-2 relative group">
-      <div className="rounded-xl px-6 py-3 flex items-center gap-x-6 md:gap-x-12 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100">
+      <div className="rounded-xl px-6 py-3 flex items-center gap-x-6 md:gap-x-7 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100">
         <FaEnvelope className="fill-white text-3xl" />
         <p className="text-white text-xl">
           {resume.email ? resume.email : "email87@gmail.com"}
         </p>
       </div>
-      <div className="rounded-xl px-6 py-3 flex items-center gap-x-6 md:gap-x-12 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100">
+      <div className="rounded-xl px-6 py-3 flex items-center gap-x-6 md:gap-x-7 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100">
         <FaPhoneAlt className="fill-white text-3xl" />
         <p className="text-white text-xl">
           {resume.phone ? resume.phone : "+1 (123) 456-7890"}
         </p>
       </div>
-      <div className="rounded-xl px-6 py-3 flex items-center gap-x-6 md:gap-x-12 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100">
+      <div className="rounded-xl px-6 py-3 flex items-center gap-x-6 md:gap-x-7 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100">
         <TfiWorld className="fill-white text-3xl" />
         <p className="text-white text-xl">
           {resume.websiteUrl ? resume.websiteUrl : "www.yoursitename.com"}
         </p>
       </div>
-      <div className="rounded-xl px-6 py-3 flex items-center gap-x-6 md:gap-x-12 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100">
+      <div className="rounded-xl px-6 py-3 flex items-center gap-x-6 md:gap-x-7 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100">
         <FaLocationDot className="fill-white text-3xl" />
         <p className="text-white text-xl">
           {resume.location ? resume.location : "New York"}

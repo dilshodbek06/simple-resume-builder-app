@@ -11,7 +11,7 @@ import EducationForm from "../_components/education-form";
 import SkillsForm from "../_components/skills-form";
 import { redirect } from "next/navigation";
 
-import { FaFileDownload } from "react-icons/fa";
+import DownloadPdf from "../../_components/download-pdf";
 
 const OneResumePage = async ({
   params: { id },
@@ -41,7 +41,10 @@ const OneResumePage = async ({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-500  via-purple-600 to-pink-500 flex justify-center items-center py-4 relative">
+    <div
+      id="my-pdf-content"
+      className="min-h-screen bg-gradient-to-b from-sky-500  via-purple-600 to-pink-500 flex justify-center items-center py-4 relative"
+    >
       <div className="flex flex-col md:flex-row gap-x-2">
         {/* left side */}
         <div className="max-w-[25rem] min-h-[35rem] rounded-lg bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 saturate-100 backdrop-contrast-100 bg-gray-300 px-3 py-4">
@@ -77,13 +80,8 @@ const OneResumePage = async ({
           </div>
         </div>
       </div>
-      <div className="fixed bottom-5 right-5 ">
-        <button
-          title="download pdf"
-          className="overflow-hidden group bg-cyan-500 relative hover:bg-gradient-to-r hover:from-cyan-500 hover:to-cyan-400 text-white hover:ring-2 hover:ring-offset-2         hover:ring-cyan-400 transition-all ease-out duration-300 p-3 hover:scale-105 rounded-full"
-        >
-          <FaFileDownload size={20} />
-        </button>
+      <div className="fixed bottom-5 right-5">
+        <DownloadPdf />
       </div>
     </div>
   );
